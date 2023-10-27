@@ -1,0 +1,48 @@
+class Hissi:
+    def __init__(self, alin, ylin):
+        self.alin = alin
+        self.ylin = ylin
+        self.sijainti = alin
+
+    def kerros_ylos(self):
+        if self.sijainti < self.ylin:
+            self.sijainti += 1
+        print(f"Hissi on nyt {self.sijainti}. kerroksessa")
+        return
+
+    def kerros_alas(self):
+        if self.sijainti > self.alin:
+            self.sijainti = self.sijainti - 1
+        print(f"Hissi on nyt {self.sijainti}. kerroksessa")
+        return
+    def siirry_kerrokseen(self, haluttu_kerros):
+        if self.sijainti < haluttu_kerros:
+            while self.sijainti < haluttu_kerros:
+                self.kerros_ylos()
+        elif self.sijainti > haluttu_kerros:
+            while self.sijainti > haluttu_kerros:
+                self.kerros_alas()
+        print("Hissi on nyt halutussa kerroksessa")
+        return
+
+
+class Talo:
+    def __init__(self, alin, ylin, hissien_lkm):
+        self.alin = alin
+        self.ylin = ylin
+        self.hissit = []
+
+        for i in range(hissien_lkm):
+            hissi = Hissi(self.alin, self.ylin)
+            self.hissit.append(hissi)
+
+    def aja_hissia(self, hissi_nro, kohde):
+        hissi = self.hissit[hissi_nro - 1]
+        hissi.siirry_kerrokseen(kohde)
+        print(f"Hissi {hissi_nro} on nyt halutussa kerroksessa {kohde}")
+        return
+
+
+talo = Talo(1, 12, 2)
+talo.aja_hissia(1, 5)
+
